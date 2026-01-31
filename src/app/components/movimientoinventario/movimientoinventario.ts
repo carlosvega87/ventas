@@ -24,7 +24,7 @@ export class MovimientoInventarioComponent implements OnInit {
   idEditar : number | null=null;
   
   dataSource!: MatTableDataSource<MovimientoInventario>;
-  mostrarColumnas: String[]=['idMovimientoInventario','tipo','cantidad','fecha','acciones'];
+  mostrarColumnas: String[]=['idMovimiento','tipo','cantidad','fechaMovimiento','acciones'];
 
 constructor(private movimientoInventarioService: MovimientoInventarioService){}
  
@@ -35,6 +35,7 @@ constructor(private movimientoInventarioService: MovimientoInventarioService){}
 findAll ():void{
   this.movimientoInventarioService.findAll().subscribe(data=>{
       //this.autores = this.data;
+       console.log('DATA BACKEND 👉', data);
       this.dataSource =new MatTableDataSource(data);
       this.dataSource.paginator= this.paginator;
       this.dataSource.sort= this.sort;
@@ -73,7 +74,7 @@ Swal.fire({
   cancelButtonColor: '#3085d6'
 }).then((result )=>{
   if(result.isConfirmed){
-    this.movimientoInventarioService.delete(this.movimientoInventario.idMovimientoInventario).subscribe(()=>{
+    this.movimientoInventarioService.delete(this.movimientoInventario.idMovimiento).subscribe(()=>{
     this.findAll();
     this.movimientoInventario ={} as MovimientoInventario;
     Swal.fire('Eliminando', 'el movimiento ha ido eliminado','success');
@@ -89,7 +90,7 @@ Swal.fire({
 //interaccion con la pagina web
 editarMovimientoInventario (movimientoInventario: MovimientoInventario)  :void{
   this.movimientoInventario = {...movimientoInventario};
-  this.idEditar=movimientoInventario.idMovimientoInventario;
+  this.idEditar=movimientoInventario.idMovimiento;
   this.editar=true;
 
   setTimeout(()=>{

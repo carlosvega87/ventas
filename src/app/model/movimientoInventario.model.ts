@@ -1,8 +1,8 @@
 export interface MovimientoInventario{
-    idMovimientoInventario:number
+    idMovimiento:number
     tipo:string
-    cantidad:string
-    fecha:string
-    
+    cantidad:number
+    fechaMovimiento:string
+    // prueba versionamiento
     
 }
